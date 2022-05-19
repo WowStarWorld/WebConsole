@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>StarWorld Console</title>
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/5.1.1/css/bootstrap.min.css">
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/5.1.1/js/bootstrap.min.js"></script>
+    <link rel="icon" href="./img/console.png"/>
+    <style>
+      body{
+        background-color: #000000;
+        font-size: 15px;
+        height:100%;
+        width: 100%;
+        margin: 0;
+        padding: 0;
+      }
+      *{
+        scrollbar-width: none; /* Firefox */
+        -ms-overflow-style: none; /* IE 10+ */
+      }
+      *::-webkit-scrollbar {
+        display: none; /* Chrome Safari */
+      }
+      a,p,span{
+        white-space:pre-wrap;
+        white-space:-moz-pre-wrap;
+        white-space:-pre-wrap;
+        white-space:-o-pre-wrap;
+        word-wrap:break-word;
+      }
+      hr{
+        border: 2.5px solid #ffffff;
+      }
+      .console{
+        color:#ffffff;
+        font-family: "unifont";
+        font-weight: bold;
+      }
+      @font-face {
+        font-family: "unifont";
+        src: url("./font/unifont.ttf");
+      }
+      #sender{
+        border:none;
+        color:rgb(0, 255, 217);
+        background-color: #000000;
+        font-family: "unifont";
+        font-size: 20px;
+      }
+      .upper{
+        background-color:#000000;
+      }
+    </style>
+  </head>
+  <body class="container-fluid">
+    <div class="upper fixed-top container"><br/><span id="sender" style="width: 100%; height: 100%" >Error</span><hr style="background-color:white;"/></div>
+    <br/><br/><br/><br/>
+    <div class="console container" id="text">  
+        <span><span style="color:red;font-size:20.5px;">404 Not Found</span></span><br/>
+        <span><span style="color:rgb(47, 255, 0);font-size:20.25px;">RV Web Server</span></span>
+    </div>  
+  </body>
+</html>
