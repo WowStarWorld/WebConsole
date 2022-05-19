@@ -8,7 +8,7 @@ var up = [""];
 var upnum = 0;
 var raw_console = console;
 var len =0;
-var version = "1.0.3";
+var version = "1.0.4";
 
 console = {
     styles: {
@@ -185,6 +185,9 @@ window.onload = function(){
                             },
                             getvar:function(name){
                                 return window[name];
+                            },
+                            eval:function(...code){
+                                return command_evaler(context["commands"],code.join(" "));
                             }
                         },
                         helps:{
@@ -219,6 +222,10 @@ window.onload = function(){
                             getvar:{
                                 description:"Get a variable.",
                                 usage:"getvar [name]"
+                            },
+                            eval:{
+                                description:"Evaluate code.",
+                                usage:"eval [*code]"
                             }
 
                         }
