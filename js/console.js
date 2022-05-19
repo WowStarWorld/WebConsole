@@ -8,7 +8,7 @@ var up = [""];
 var upnum = 0;
 var raw_console = console;
 var len =0;
-var version = "1.0.2";
+var version = "1.0.3";
 
 console = {
     styles: {
@@ -178,6 +178,13 @@ window.onload = function(){
                                     }
                                 })
                                 return "";
+                            },
+                            setvar:function(name,value){
+                                window[name] = value;
+                                return "";
+                            },
+                            getvar:function(name){
+                                return window[name];
                             }
                         },
                         helps:{
@@ -205,6 +212,14 @@ window.onload = function(){
                                 description:"Import a module.",
                                 usage:"import [url]"
                             },
+                            setvar:{
+                                description:"Set a variable.",
+                                usage:"setvar [name] [value]"
+                            },
+                            getvar:{
+                                description:"Get a variable.",
+                                usage:"getvar [name]"
+                            }
 
                         }
 
