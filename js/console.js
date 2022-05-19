@@ -3,6 +3,7 @@
     document.write("<script src=\"./js/command_evaler.js\"></script>");
 })()
 
+//variables
 var up = [""];
 var upnum = 0;
 var raw_console = console;
