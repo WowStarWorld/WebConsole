@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>StarWorld Console</title>
+    <script src="./js/console.js" ></script>
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/5.1.1/css/bootstrap.min.css">
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/5.1.1/js/bootstrap.min.js"></script>
+    <link rel="icon" href="./img/console.png"/>
+    <style>
+      body{
+        background-color: #000000;
+        font-size: 15px;
+        height:100%;
+        width: 100%;
+        margin: 0;
+        padding: 0;
+      }
+      *{
+        scrollbar-width: none; /* Firefox */
+        -ms-overflow-style: none; /* IE 10+ */
+      }
+      *::-webkit-scrollbar {
+        display: none; /* Chrome Safari */
+      }
+      a,p,span{
+        white-space:pre-wrap;
+        white-space:-moz-pre-wrap;
+        white-space:-pre-wrap;
+        white-space:-o-pre-wrap;
+        word-wrap:break-word;
+      }
+      hr{
+        border: 2.5px solid #ffffff;
+      }
+      .console{
+        color:#ffffff;
+        font-family: "unifont";
+        font-weight: bold;
+      }
+      @font-face {
+        font-family: "unifont";
+        src: url("./font/unifont.ttf");
+      }
+      #sender{
+        border:none;
+        color:#0f0;
+        background-color: #000000;
+        font-family: "unifont";
+        font-size: 20px;
+      }
+      #sender:focus{
+        outline: none;
+        color:#0f0;
+      }
+      .upper{
+        background-color:#000000;
+      }
+    </style>
+  </head>
+  <body class="container-fluid">
+    <div class="upper fixed-top container"><br/><input id="sender" style="width: 100%; height: 100%" autofocus="autofocus" spellcheck="false"></input><hr style="background-color:white;"/></div>
+    <br/><br/><br/><br/>
+    <div class="console container" id="text">  
+    </div>  
+  </body>
+</html>
