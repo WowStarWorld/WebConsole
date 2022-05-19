@@ -7,7 +7,7 @@ var up = [""];
 var upnum = 0;
 var raw_console = console;
 var len =0;
-var version = "1.0.0";
+var version = "1.0.1";
 
 console = {
     styles: {
