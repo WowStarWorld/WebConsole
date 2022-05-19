@@ -93,7 +93,6 @@ window.onload = function(){
     println("Type '#code' to execute javascript code.",style="color:#0f0;");
     sender.addEventListener("keyup", function(event) {
         event.preventDefault();
-        raw_console.log("Key: " + event.keyCode)
         if (event.keyCode === 13) {
             up.push(sender.value);
             v = sender.value;
@@ -135,8 +134,7 @@ window.onload = function(){
                                 return "";
                             },
                             "args":function(...args){
-                                println(args)
-                                return "";
+                                return args;
                             },
                             "js":function(...args){
                                 return eval(args.join(" "));
@@ -148,6 +146,37 @@ window.onload = function(){
                                 else{
                                     return console[sub];
                                 }
+                            },
+                            curl:function(url,method="GET",data="{}"){
+                                $.ajax({
+                                    url:url,
+                                    method:method,
+                                    data:JSON.parse(data.replaceAll("&nbsp;"," ")),
+                                    success:function(content){
+                                        println(content.replaceAll(">","&gt;").replaceAll("<","&lt;"),"color: #0f0;");
+                                    },
+                                    error:function(err){
+                                        println(JSON.stringify(err,null,2),"color: #f00;");
+                                    }
+                                })
+                                
+                                return "";
+                            },
+                            import:function(url){
+                                $.ajax({
+                                    url:url,
+                                    success:function(content){
+                                        try{
+                                            return Function(content)();
+                                        }catch(err){
+                                            println("Unable to load module: \n"+err,"color: #f00;");
+                                        }
+                                    },
+                                    error:function(err){
+                                        println("Unable to get module: \n"+JSON.stringify(err,null,2).replaceAll("<","&lt;").replaceAll(">","&gt;"),"color: #f00;");
+                                    }
+                                })
+                                return "";
                             }
                         },
                         helps:{
@@ -166,7 +195,16 @@ window.onload = function(){
                             console:{
                                 description:"Output content on console",
                                 usage:`console [${Object.keys(console).join("|")}] [*args]`
-                            }
+                            },
+                            curl:{
+                                description:"Execute ajax request.",
+                                usage:"curl [url] [method=GET] [data={}]"
+                            },
+                            import:{
+                                description:"Import a module.",
+                                usage:"import [url]"
+                            },
+
                         }
 
                     };
