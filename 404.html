@@ -3,9 +3,11 @@
   <head>
     <meta charset="utf-8">
     <title>StarWorld Console</title>
+    <script src="./js/console.js" ></script>
     <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/5.1.1/css/bootstrap.min.css">
     <script src="https://cdn.staticfile.org/twitter-bootstrap/5.1.1/js/bootstrap.min.js"></script>
     <link rel="icon" href="./img/console.png"/>
+    
     <style>
       body{
         background-color: #000000;
@@ -43,26 +45,41 @@
       }
       #sender{
         border:none;
-        color:rgb(0, 255, 217);
+        color:#0f0;
         background-color: #000000;
         font-family: "unifont";
         font-size: 20px;
+      }
+      #sender:focus{
+        outline: none;
+        color:#0f0;
       }
       .upper{
         background-color:#000000;
       }
     </style>
   </head>
-  <body class="container-fluid">
-    <div class="upper fixed-top container"><br/><span id="sender" style="width: 100%; height: 100%" >Error</span><hr style="background-color:white;"/></div>
+  <script>
+    window.onloads = (
+      function(){
+        $("#sender").focus();
+        println(`Welcome to the web-based console - StarWorld console v${version}!`,"color:#ff0;");
+        println("Github Repository: <a href='https://github.com/WowStarWorld/WebConsole' style='color:#ff0;'>https://github.com/WowStarWorld/WebConsole</a>","color:#ff0;");
+        println(``);
+        println(`<span><span style="color:red;"><span style="color:red;">An Error was found from RVWebServer{<br/>  At main<br/><span style="color:red;">    onView=()=>{......}<br/>  At &lt;Lambda&gt;<br/>    if(!pageFound){<br/>      header("http/1.1 404 Not found");<br/>      throw Error("404 Not Found");<br/>      println(texts["404Button"]);<br/>    }<br/>}</span></span><br/>Error: 404 Not Found</span></span><span></span>`);
+        println(`RVWebServer tries its best to send this message:`,"color:#f00");
+        println(`  <span><a href="/" style="color:aqua;">Home</a></span>&nbsp;<span><a href="javascript:location.reload();" style="color:aqua;">Reload</a></span>&nbsp;<span><a href="javascript:history.back();" style="color:aqua;">Back</a></span>&nbsp;<span><a href="javascript:history.forward();" style="color:aqua;">Forward</a></span>`)
+        println();
+        println(`Program Finished`,"color:red;");
+        throw Error("Program Finished");
+      }
+    );
+    
+  </script>
+  <body class="container-fluid">  
+    <div class="upper fixed-top container"><br/><input id="sender" value="Error" style="width: 100%; height: 100%" autofocus="autofocus" spellcheck="false" oninput="setTimeout(()=>{this.value='Error';},100);"></input><hr style="background-color:white;"/></div>
     <br/><br/><br/><br/>
     <div class="console container" id="text">  
-        <span><span style="color:red;font-size:20.5px;">404 Not Found</span></span><br/>
-        <span><span style="color:rgb(47, 255, 0);font-size:20.25px;">RV Web Server</span></span><br/><br/>
-        <span><a href="/" style="color:rgb(246, 71, 255);font-size:20.25px;">Home</a></span>
-        <span><a href="javascript:location.reload();" style="color:rgb(246, 71, 255);font-size:20.25px;">Reload</a></span>
-        <span><a href="javascript:history.back();" style="color:rgb(246, 71, 255);font-size:20.25px;">Back</a></span>
-        <span><a href="javascript:history.forward();" style="color:rgb(246, 71, 255);font-size:20.25px;">Forward</a></span>
     </div>  
   </body>
 </html>

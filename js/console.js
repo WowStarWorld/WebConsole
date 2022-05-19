@@ -8,7 +8,7 @@ var up = [""];
 var upnum = 0;
 var raw_console = console;
 var len =0;
-var version = "1.0.5";
+var version = "1.0.6";
 var code = "I am JavaScript Code";
 
 console = {
@@ -82,17 +82,20 @@ function range(start=0,end=0,step=1){
     return arr;
 }
 
-function println(str,style=""){
+function println(str="",style=""){
     $("#text").html($("#text").html()+`<span style="${style}" width="100%">`+str+`</span><span style="color:#ff0;float:right;">${len}</span><br/>`);
     window.scrollTo(0, document.body.scrollHeight+1000);
     len++;
 }
 
-window.onload = function(){
+window.onloads = function(){
     println(`Welcome to the web-based console - StarWorld console v${version}!`,"color:#ff0;");
     println("Github Repository: <a href='https://github.com/WowStarWorld/WebConsole' style='color:#ff0;'>https://github.com/WowStarWorld/WebConsole</a>","color:#ff0;");
     println("Type 'help' to get help.",style="color:#0f0;");
     println("Type '#code' to execute javascript code.",style="color:#0f0;");
+}
+window.onload = function(){
+    window.onloads();
     sender.addEventListener("keyup", function(event) {
         event.preventDefault();
         if (event.keyCode === 13) {
