@@ -7,7 +7,7 @@ var up = [""];
 var upnum = 0;
 var raw_console = console;
 var len =0;
-var version = "1.0.1";
+var version = "1.0.2";
 
 console = {
     styles: {
@@ -156,7 +156,7 @@ window.onload = function(){
                                         println(content.replaceAll(">","&gt;").replaceAll("<","&lt;"),"color: #0f0;");
                                     },
                                     error:function(err){
-                                        println(JSON.stringify(err,null,2),"color: #f00;");
+                                        println(JSON.stringify(err,null,2).replaceAll(">","&gt;").replaceAll("<","&lt;"),"color: #f00;");
                                     }
                                 })
                                 
@@ -215,7 +215,7 @@ window.onload = function(){
                 }
                 
             }catch(err){
-                println("<strong>"+err+"</strong>","color: red;font-size: 15px;");
+                println("<strong>"+String(err).replaceAll("<","&lt;").replaceAll(">","&gt;")+"</strong>","color: red;font-size: 15px;");
             }
             
         }
