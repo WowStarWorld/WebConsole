@@ -4,9 +4,9 @@
             "name":"Echo Command",
             "description":"Add Echo Command",
             "author":"WowStarWorld",
-            "version":"1.0",
+            "version":"1.0.0",
             "url":"https://github.com/WowStarWorld",
-            "plugin":"https://wowstarworld.github.io/WebConsole/api/plugins/echo.js"
+            "plugin":"https://console.starworldstudio.tk/api/plugins/echo.js"
         }
     ]
 }

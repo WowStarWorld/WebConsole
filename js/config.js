@@ -1,3 +1,3 @@
 var config = {
-    "pluginlist_mirror": "https://WowStarWorld.github.io/WebConsole/api/pluginlist.json",
+    "pluginlist_mirror": "https://console.starworldstudio.tk/api/pluginlist.json",
 }
