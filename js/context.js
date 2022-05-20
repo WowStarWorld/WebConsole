@@ -175,7 +175,7 @@ var context ={
         },
         "plugins":{
             description:"Show the official plugins",
-            usage:"plugins & import <plugin>"
+            usage:"plugins & import &lt;plugin&gt;"
         }
     }
 
