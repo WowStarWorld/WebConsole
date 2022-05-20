@@ -5,14 +5,13 @@
     document.write("<script src=\"./js/context.js\"></script>"); // context
 })()
 
-//variables
-var up = [""];
-var upnum = 0;
-var raw_console = console;
-var len =0;
-var version = "1.1.2";
-var code = "I am JavaScript Code";
-var evaler;
+var up = [""]; // Content history
+var upnum = 0; // history index
+var raw_console = console; // old console
+var len =0; // println length
+var version = "1.1.2"; // WebConsole version
+var code = "I am JavaScript Code"; // Code Variable
+var evaler; // Define Evaler
 
 var reload_evaler = ()=>{
     evaler = new commandEvaler(context["commands"]);
