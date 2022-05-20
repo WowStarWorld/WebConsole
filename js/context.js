@@ -59,11 +59,11 @@ var context ={
                     try{
                         return Function(content)();
                     }catch(err){
-                        println("Unable to load module: \n"+err,"color: #f00;");
+                        println("Unable to load plugin: \n"+err,"color: #f00;");
                     }
                 },
                 error:function(err){
-                    println("Unable to get module: \n"+JSON.stringify(err,null,2).replaceAll("<","&lt;").replaceAll(">","&gt;"),"color: #f00;");
+                    println("Unable to get plugin: \n"+JSON.stringify(err,null,2).replaceAll("<","&lt;").replaceAll(">","&gt;"),"color: #f00;");
                 }
             })
             return "";
@@ -138,6 +138,25 @@ var context ={
                     println(JSON.stringify(err,null,2).replaceAll(">","&gt;").replaceAll("<","&lt;"),"color: #f00;");
                 }
             });
+        },
+        "upload":function(){
+            var inputObj=document.createElement('input')
+            inputObj.setAttribute('id','_ef');
+            inputObj.setAttribute('type','file');
+            inputObj.setAttribute("style",'visibility:hidden');
+            document.body.appendChild(inputObj);
+            inputObj.click();
+            inputObj.onchange = function(){
+                const reader = new FileReader();
+                reader.onload = function(){
+                    try{
+                        Function(reader.result)()
+                    }catch(e){
+                        println(`Unable to load plugin: ${e}`,"color:#f00;")
+                    }
+                }
+                reader.readAsText(inputObj.files[0])
+            }
         }
     },
     helps:{
@@ -162,7 +181,7 @@ var context ={
             usage:"curl [url] [method=GET] [data={}]"
         },
         "import":{
-            description:"Import a module.",
+            description:"Import a plugin.",
             usage:"import [url]"
         },
         "var":{
@@ -176,6 +195,10 @@ var context ={
         "plugins":{
             description:"Show the official plugins",
             usage:"plugins & import &lt;plugin&gt;"
+        },
+        "upload":{
+            description:"Upload and import a plugin",
+            usage:"upload"
         }
     }
 
