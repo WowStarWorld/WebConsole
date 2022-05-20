@@ -119,6 +119,25 @@ var context ={
         "eval":function(...code){
             var evaler = new commandEvaler(context["commands"]);
             return evaler.eval(code.join(" "));
+        },
+        "plugins":function(){
+            $.ajax({
+                url:config.pluginlist_mirror,
+                success:function(content){
+                    var plugins = JSON.parse(content);
+                    for(var i = 0, len = plugins.length; i < len; i++) {
+                        println(plugins[i].name,style="color: #0f0;");
+                        println(`    Description: ${plugins[i].description}`,style="color: #bababa;")
+                        println(`    Author: ${plugins[i].author}`,style="color: #bababa;")
+                        println(`    Version: ${plugins[i].version}`,style="color: #bababa;")
+                        println(`    URL: ${plugins[i].url}`,style="color: #bababa;")
+                        println(`    Plugin: ${plugins[i].plugin}`,style="color: #bababa;")
+                    }
+                },
+                error:function(err){
+                    println(JSON.stringify(err,null,2).replaceAll(">","&gt;").replaceAll("<","&lt;"),"color: #f00;");
+                }
+            });
         }
     },
     helps:{
@@ -153,8 +172,7 @@ var context ={
         "eval":{
             description:"Evaluate code.",
             usage:"eval [···code]"
-        }
-
+        },
     }
 
 };

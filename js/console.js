@@ -1,6 +1,7 @@
 !(function(){
     document.write("<script src=\"https://cdn.staticfile.org/jquery/3.6.0/jquery.min.js\"></script>"); // $
-    document.write("<script src=\"./js/command_evaler.js\"></script>"); // commandEvaler 
+    document.write("<script src=\"./js/command_evaler.js\"></script>"); // commandEvaler
+    document.write("<script src=\"./js/config.js\"></script>"); // context 
     document.write("<script src=\"./js/context.js\"></script>"); // context
 })()
 
@@ -9,10 +10,54 @@ var up = [""];
 var upnum = 0;
 var raw_console = console;
 var len =0;
-var version = "1.1.0";
+var version = "1.1.1";
 var code = "I am JavaScript Code";
-var help = ()=>{
-    return Object.keys(this);
+var evaler;
+
+var reload_evaler = ()=>{
+    evaler = new commandEvaler(context["commands"]);
+}
+var help = (obj=help)=>{
+    getParameterName = (fn) => {
+        if(typeof fn !== 'object' && typeof fn !== 'function' ) return;
+        const COMMENTS = /((\/\/.*$)|(\/\*[\s\S]*?\*\/))/mg;
+        const DEFAULT_PARAMS = /=[^,)]+/mg;
+        const FAT_ARROWS = /=>.*$/mg;
+        let code = fn.prototype ? fn.prototype.constructor.toString() : fn.toString();
+        code = code
+            .replace(COMMENTS, '')
+            .replace(FAT_ARROWS, '')
+            .replace(DEFAULT_PARAMS, '');
+        let result = code.slice(code.indexOf('(') + 1, code.indexOf(')')).match(/([^\s,]+)/g);
+        return result === null ? [] :result;
+    }
+    getName = (obj) => {
+        return obj.name || obj.toString().match(/function\s*([^(]*)\(/)[1]
+    }
+    if (obj == help){
+        println("Type 'help(Object)' to get help of a object.","color:#0f0;");
+    }else if (typeof obj == "function"){
+        println(`Name: ${getName(obj)}`,"color:#0f0;");
+        if (obj == Object){
+            println("Properties: "+Object.keys(this).join(),"color:#0f0;");
+        }else{
+            println("Parameters: "+getParameterName(obj).join(", "),"color:#0f0;");
+        }
+    }else if (typeof obj == "object"){
+        try{println(`Name: ${getName(obj)}`,"color:#0f0;");}catch(e){}
+        try{println("Properties: "+Object.keys(obj).join(", "),"color:#0f0;");}catch(e){}
+        try{println("Methods: "+Object.getOwnPropertyNames(obj).join(", "),"color:#0f0;");}catch(e){}
+        if (obj.__doc__ != undefined){
+            println("Description: "+obj.__doc__,"color:#0f0;");
+        }
+    }else{
+        println(`Type: ${typeof obj}`,"color:#0f0;");
+        println(`Value: ${obj}`,"color:#0f0;");
+        if (obj.__doc__ != undefined){
+            println("Description: "+obj.__doc__,"color:#0f0;");
+        }
+    }
+    return "";
 };
 
 console = {
@@ -118,7 +163,7 @@ window.onload = function(){
                     }
                 }
                 else{
-                    var evaler = new commandEvaler(context["commands"]);
+                    reload_evaler();
                     result = String(evaler.eval(v.replaceAll("<","&lt;").replaceAll(">","&gt;"))).replaceAll("\n","<br/>").replaceAll(" ","&nbsp;");
                     if (String(result).replaceAll(" ","") != ""){
                         println("< "+`<span style='color: #9980f1;'>${result}</span>`+"","color: #bababa;");

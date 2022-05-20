@@ -1,0 +1,12 @@
+{
+    "pluginlist":[
+        {
+            "name":"Echo Command",
+            "description":"Add Echo Command",
+            "author":"WowStarWorld",
+            "version":"1.0",
+            "url":"https://github.com/WowStarWorld",
+            "plugin":"https://wowstarworld.github.io/WebConsole/api/plugins/echo.js"
+        }
+    ]
+}
