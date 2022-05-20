@@ -201,6 +201,20 @@ window.onload = function(){
             page_down.onclick();
         }
     });
+    sender.addEventListener("keydown", function(event) {
+        if (event.keyCode === 9) {
+            event.keyCode=0;
+            event.returnValue=false;
+            tmp = sender.selectionStart;
+            if (sender.selectionStart == sender.selectionEnd){
+                sender.value = sender.value.substr(0,tmp) + "  " + sender.value.substr(tmp);
+            }else{
+                sender.value = sender.value.substr(0,sender.selectionStart) + "  " + sender.value.substr(sender.selectionEnd);
+            }
+            sender.selectionStart = tmp+2;
+            sender.selectionEnd = tmp+2;
+        }
+    });
 
 }
 
