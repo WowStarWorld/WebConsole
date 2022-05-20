@@ -1,7 +1,7 @@
 !(function(){
     document.write("<script src=\"https://cdn.staticfile.org/jquery/3.6.0/jquery.min.js\"></script>"); // $
     document.write("<script src=\"./js/command_evaler.js\"></script>"); // commandEvaler
-    document.write("<script src=\"./js/config.js\"></script>"); // context 
+    document.write("<script src=\"./js/config.js\"></script>"); // config
     document.write("<script src=\"./js/context.js\"></script>"); // context
 })()
 
@@ -10,7 +10,7 @@ var up = [""];
 var upnum = 0;
 var raw_console = console;
 var len =0;
-var version = "1.1.1";
+var version = "1.1.2";
 var code = "I am JavaScript Code";
 var evaler;
 
@@ -132,7 +132,8 @@ function range(start=0,end=0,step=1){
 }
 
 function println(str="",style=""){
-    $("#text").html($("#text").html()+`<span style="${style}" width="100%">`+str+`</span><span style="color:#ff0;float:right;">${len}</span><br/>`);
+    var date = new Date();
+    $("#text").html($("#text").html()+`<span style="${style}" width="100%">`+str+`</span><span style="color:#ff0;float:right;">[${date.getHours()}:${date.getMinutes()}:${date.getSeconds()} | ${len}]</span><br/>`);
     window.scrollTo(0, document.body.scrollHeight+1000);
     len++;
 }
