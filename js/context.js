@@ -124,7 +124,7 @@ var context ={
             $.ajax({
                 url:config.pluginlist_mirror,
                 success:function(content){
-                    var plugins = content;
+                    var plugins = content.pluginlist;
                     for(var i = 0, len = plugins.length; i < len; i++) {
                         println(plugins[i].name,style="color: #0f0;");
                         println(`    Description: ${plugins[i].description}`,style="color: #bababa;")
@@ -173,6 +173,10 @@ var context ={
             description:"Evaluate code.",
             usage:"eval [···code]"
         },
+        "plugins":{
+            description:"Show the official plugins",
+            usage:"plugins"
+        }
     }
 
 };
