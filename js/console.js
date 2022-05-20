@@ -9,7 +9,7 @@ var up = [""];
 var upnum = 0;
 var raw_console = console;
 var len =0;
-var version = "1.0.9";
+var version = "1.1.0";
 var code = "I am JavaScript Code";
 var help = ()=>{
     return Object.keys(this);
@@ -106,7 +106,9 @@ window.onload = function(){
             v = sender.value;
             sender.value = "";
             upnum = 0;
-            println("> "+`<span style='color: #a1f7a7'>${v.replaceAll("<","&lt;").replaceAll(">","&gt;").replaceAll(" ","&nbsp;")}</span>`,"color: #939393;");
+            if (!v.replaceAll(" ","") == "") {
+                println("> "+`<span style='color: #a1f7a7'>${v.replaceAll("<","&lt;").replaceAll(">","&gt;").replaceAll(" ","&nbsp;")}</span>`,"color: #939393;");
+            }
             try{
                 if (v[0] == "#"){
                     v = v.substr(1)
