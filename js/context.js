@@ -68,12 +68,53 @@ var context ={
             })
             return "";
         },
-        "setvar":function(name,value){
-            window[name] = value;
-            return "";
-        },
-        "getvar":function(name){
-            return window[name];
+        "var":function(type,name,exp,...value){
+            helper = () => {var evaler = new commandEvaler(context["commands"]);return evaler.eval("help var");}
+            if (type == "set"){
+                if (name != undefined){
+                    if (exp == "=="){
+                        return window[name] = eval(value.join(" "));
+                    }else if (exp == "+="){
+                        return window[name] = window[name] + eval(value.join(" "));
+                    }else if (exp == "^="){
+                        return window[name] = window[name] ** eval(value.join(" "));
+                    }else if (exp == "-="){
+                        return window[name] = eval(window[name]-eval(value.join(" ")));
+                    }else if (exp == "*="){
+                        return window[name] = eval(window[name]*eval(value.join(" ")));
+                    }else if (exp == "/="){
+                        return window[name] = eval(window[name]/eval(value.join(" ")));
+                    }else if (exp == "\\="){
+                        return window[name] = Math.floor(window[name]/eval(value.join(" ")));
+                    }else if (exp == "++"){
+                        return window[name]++;
+                    }else if (exp == "--"){
+                        return window[name]--;
+                    }else{
+                        return helper();
+                    }
+                }else{
+                    return helper();
+                }
+            }
+            else if (type == "get"){
+                if (name != undefined){
+                    return window[name];
+                }else{
+                    return helper();
+                }
+            }
+            else if (type == "del"){
+                if (name != undefined){
+                    window[name] == null;
+                    return delete window[name];
+                }else{
+                    return helper();
+                }
+                
+            }else{
+                return helper();
+            }
         },
         "eval":function(...code){
             var evaler = new commandEvaler(context["commands"]);
@@ -87,11 +128,11 @@ var context ={
         },
         "args":{
             description:"Show the arguments of the command.",
-            usage:"args [*args]"
+            usage:"args [···args]"
         },
         "js":{
             description:"Execute javascript code.",
-            usage:"js [*code]"
+            usage:"js [···code]"
         },
         "console":{
             description:"Output content on console",
@@ -105,17 +146,13 @@ var context ={
             description:"Import a module.",
             usage:"import [url]"
         },
-        "setvar":{
-            description:"Set a variable.",
-            usage:"setvar [name] [value]"
-        },
-        "getvar":{
-            description:"Get a variable.",
-            usage:"getvar [name]"
+        "var":{
+            description:"Manage variables.",
+            usage:"var set|get|del &lt;name&gt; &lt;set-expression[==|+=|-=|*=|^=|/=|\\=|++|--]&gt; &lt;set-expression!=[++|--][···values]&gt;"
         },
         "eval":{
             description:"Evaluate code.",
-            usage:"eval [*code]"
+            usage:"eval [···code]"
         }
 
     }

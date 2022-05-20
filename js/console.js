@@ -9,7 +9,7 @@ var up = [""];
 var upnum = 0;
 var raw_console = console;
 var len =0;
-var version = "1.0.8";
+var version = "1.0.9";
 var code = "I am JavaScript Code";
 var help = ()=>{
     return Object.keys(this);
