@@ -152,7 +152,7 @@ window.onload = function(){
             sender.value = "";
             upnum = 0;
             if (!v.replaceAll(" ","") == "") {
-                println("> "+`<span style='color: #a1f7a7'>${v.replaceAll("<","&lt;").replaceAll(">","&gt;").replaceAll(" ","&nbsp;").replaceAll("&","&amp;")}</span>`,"color: #939393;");
+                println("> "+`<span style='color: #a1f7a7'>${v.replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;").replaceAll(" ","&nbsp;")}</span>`,"color: #939393;");
             }
             try{
                 if (v[0] == "#"){
