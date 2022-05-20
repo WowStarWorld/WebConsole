@@ -5,6 +5,7 @@
     document.write("<script src=\"./js/context.js\"></script>"); // context
 })()
 
+//variables
 var up = [""]; // Content history
 var upnum = 0; // history index
 var raw_console = console; // old console
