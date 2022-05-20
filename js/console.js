@@ -9,7 +9,7 @@ var up = [""];
 var upnum = 0;
 var raw_console = console;
 var len =0;
-var version = "1.0.7";
+var version = "1.0.8";
 var code = "I am JavaScript Code";
 var help = ()=>{
     return Object.keys(this);
@@ -129,24 +129,29 @@ window.onload = function(){
             
         }
     }
+    page_up.onclick = function(){
+        if (up[up.length - (upnum+1)] != undefined){
+            sender.value = up[up.length - (upnum+1)];
+        }
+        if ((up.length - (upnum+1)) != undefined){
+            upnum++;
+        }
+    }
+    page_down.onclick = function(){
+        if (up[upnum] != undefined){
+            sender.value = up[upnum];
+        }
+        if ((upnum) != undefined){
+            upnum--;
+        }
+    }
     sender.addEventListener("keyup", function(event) {
         event.preventDefault();
-        
         if (event.keyCode === 38){
-            if (up[up.length - (upnum+1)] != undefined){
-                sender.value = up[up.length - (upnum+1)];
-            }
-            if ((up.length - (upnum+1)) != undefined){
-                upnum++;
-            }
+            page_up.onclick();
         }
         else if (event.keyCode === 40){
-            if (up[upnum] != undefined){
-                sender.value = up[upnum];
-            }
-            if ((upnum) != undefined){
-                upnum--;
-            }
+            page_down.onclick();
         }
     });
 
