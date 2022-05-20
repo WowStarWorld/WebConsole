@@ -100,9 +100,8 @@ window.onloads = function(){
 }
 window.onload = function(){
     window.onloads();
-    sender.addEventListener("keyup", function(event) {
-        event.preventDefault();
-        if (event.keyCode === 13) {
+    send.onclick = function(){
+        if (true) {
             up.push(sender.value);
             v = sender.value;
             sender.value = "";
@@ -129,7 +128,11 @@ window.onload = function(){
             }
             
         }
-        else if (event.keyCode === 38){
+    }
+    sender.addEventListener("keyup", function(event) {
+        event.preventDefault();
+        
+        if (event.keyCode === 38){
             if (up[up.length - (upnum+1)] != undefined){
                 sender.value = up[up.length - (upnum+1)];
             }
