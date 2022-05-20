@@ -152,7 +152,7 @@ var context ={
                     try{
                         Function(reader.result)()
                     }catch(e){
-                        println(`Unable to load plugin: ${e}`,"color:#f00;")
+                        println(`Unable to load plugin: \n&nbsp;&nbsp;${e}`,"color:#f00;")
                     }
                 }
                 reader.readAsText(inputObj.files[0])
