@@ -124,7 +124,7 @@ var context ={
             $.ajax({
                 url:config.pluginlist_mirror,
                 success:function(content){
-                    var plugins = JSON.parse(content);
+                    var plugins = content;
                     for(var i = 0, len = plugins.length; i < len; i++) {
                         println(plugins[i].name,style="color: #0f0;");
                         println(`    Description: ${plugins[i].description}`,style="color: #bababa;")
