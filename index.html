@@ -68,7 +68,7 @@
         <span><input type="button" value="Clear" style="color:#000000;background-color: #FF0;border:#D3D3D3;outline: none;font-family: unifont;font-size:20.25px" onclick="sender.value='';"/></span>
         <span><input type="button" value="UP" id="page_up" style="color:#000000;background-color: #FF0;border:#D3D3D3;outline: none;font-family: unifont;font-size:20.25px" onclick="sender.value='';"/></span>
         <span><input type="button" value="Down" id="page_down" style="color:#000000;background-color: #FF0;border:#D3D3D3;outline: none;font-family: unifont;font-size:20.25px" onclick="sender.value='';"/></span>
-        <span><input type="button" value="Reset" style="color:#000000;background-color: #FF0;border:#D3D3D3;outline: none;font-family: unifont;font-size:20.25px" onclick="console.clear();window.onloads();sender.value='';"/></span>
+        <span><input type="button" value="Reset" id="reset"  style="color:#000000;background-color: #FF0;border:#D3D3D3;outline: none;font-family: unifont;font-size:20.25px" onclick="$('#text').fadeOut(1000);setTimeout(function(){console.clear();window.onloads();sender.value='';$('#text').fadeIn(100);},1000);"/></span>
       </form>
     </div>
     <br/><br/><br/><br/><br/><br/>

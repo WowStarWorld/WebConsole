@@ -138,6 +138,7 @@ var context ={
                     println(JSON.stringify(err,null,2).replaceAll(">","&gt;").replaceAll("<","&lt;"),"color: #f00;");
                 }
             });
+            return "";
         },
         "upload":function(){
             var inputObj=document.createElement('input')

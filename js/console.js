@@ -10,7 +10,7 @@ var up = [""]; // Content history
 var upnum = 0; // history index
 var raw_console = console; // old console
 var len =0; // println length
-var version = "1.1.2"; // WebConsole version
+var version = "1.1.3"; // WebConsole version
 var code = "I am JavaScript Code"; // Code Variable
 var evaler; // Define Evaler
 
@@ -131,7 +131,7 @@ function range(start=0,end=0,step=1){
     return arr;
 }
 
-function println(str="",style=""){
+function println(str="",style="",std=false){
     var date = new Date();
     $("#text").html($("#text").html()+`<span style="${style}" width="100%">`+str+`</span><span style="color:#ff0;float:right;">[${date.getHours()}:${date.getMinutes()}:${date.getSeconds()} | ${len}]</span><br/>`);
     window.scrollTo(0, document.body.scrollHeight+1000);
@@ -139,10 +139,10 @@ function println(str="",style=""){
 }
 
 window.onloads = function(){
-    println(`Welcome to the web-based console - StarWorld console v${version}!`,"color:#ff0;");
-    println("Github Repository: <a href='https://github.com/WowStarWorld/WebConsole' style='color:#ff0;'>https://github.com/WowStarWorld/WebConsole</a>","color:#ff0;");
-    println("Type 'help' to get help.",style="color:#0f0;");
-    println("Type '#code' to execute javascript code.",style="color:#0f0;");
+    println(`Welcome to the web-based console - StarWorld console v${version}!`,"color:#ff0;",std=true);
+    println("Github Repository: <a href='https://github.com/WowStarWorld/WebConsole' style='color:#ff0;'>https://github.com/WowStarWorld/WebConsole</a>","color:#ff0;",std=true);
+    println("Type 'help' to get help.",style="color:#0f0;",std=true);
+    println("Type '#code' to execute javascript code.",style="color:#0f0;",std=true);
 }
 window.onload = function(){
     window.onloads();
