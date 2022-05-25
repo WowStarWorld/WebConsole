@@ -1,3 +1,11 @@
+/*
+ ____  _           __        __         _     _   ____                _           
+/ ___|| |_ __ _ _ _\ \      / /__  _ __| | __| | |  _ \ ___ _ __   __| | ___ _ __ 
+\___ \| __/ _` | '__\ \ /\ / / _ \| '__| |/ _` | | |_) / _ \ '_ \ / _` |/ _ \ '__|
+ ___) | || (_| | |   \ V  V / (_) | |  | | (_| | |  _ <  __/ | | | (_| |  __/ |   
+|____/ \__\__,_|_|    \_/\_/ \___/|_|  |_|\__,_| |_| \_\___|_| |_|\__,_|\___|_|   
+                                                                                  
+*/
 class Color{
     constructor (color=Array){
         if (color.constructor === String){
@@ -78,3 +86,44 @@ class Color{
         return parseInt(this.toHex().color.substring(1),16);
     }
 }
+
+raw_console.log(
+`%c
+                                                                                                   
+                                                                                                   
+                                                                                                   
+                                                                                                   
+                                                                                                   
+                                                                                                   
+                                                                                                   
+                                                                                                   
+                                                                                                   
+                                                                                                   
+                                                      ;i:                                          
+                                                  ;iiiii:                                          
+                                              iiiiiiiiii:                                          
+                                         ,iiiiiiiiiiiiii:                                          
+                                     ,iiiiiiiiiiiiiiiiii:                                          
+                                 :iiiiiiiiiiiiiiiiiiiii;                                           
+                                 iiiiiiiiiiiiiiiiii;                                               
+                                 iiiiiiiiiiiiii:    i,  ,1,                                        
+                                 iiiiiiiiii,     i. 1,  ,1111i:                                    
+                                 iiiiiiiii    i: 1. 1,  ,11iiiiiii:                                
+                                 iiiiiiiiii   i: 1. 1,  ,iiiiiiiii;                                
+                                 iiiiiiiiii   1: 1. 1,  ,iiiiiiiii;                                
+                                 iiiiiiiiii   1: 1. 1,  ,iiiiiiiii;                                
+                                 iiiiii111i   1: 1. i,   :iiiiiiii;                                
+                                     i1111i   1: i.     ;iiiiiiiii;                                
+                                         ii   1,    iiiiiiiiiiiiii;                                
+                                               .iiiiiiiiiiiiiiiiii;                                
+                                           ,iiiiiiiiiiiiiiiiiii;;:.                                
+                                           iiiiiiiiiiiiiiii;;;                                     
+                                           iiiiiiiiiiii;;:                                         
+                                           iiiiiiii;;:                                             
+                                           iiii;;,                                                 
+                                           ;;,                                                     
+                                                                                                                                                                                                                                                                    
+`," color:aqua;");
+raw_console.log(`%c
+                                      StarWorld Studio 
+`,"color:aqua;");
