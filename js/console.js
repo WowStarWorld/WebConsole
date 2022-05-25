@@ -17,7 +17,7 @@ var up = [""]; // Content history
 var upnum = 0; // history index
 var raw_console = console; // old console
 var len =0; // println length
-var version = "1.1.5"; // WebConsole version
+var version = "1.1.6"; // WebConsole version
 var code = "I am JavaScript Code"; // Code Variable
 var evaler; // Define Evaler
 
@@ -144,6 +144,13 @@ function println(str="",style="",std=false){
     window.scrollTo(0, document.body.scrollHeight+1000);
     len++;
 }
+function isMobile(){
+    if(window.navigator.userAgent.match(/(phone|pad|pod|iPhone|iPod|ios|iPad|Android|Mobile|BlackBerry|IEMobile|MQQBrowser|JUC|Fennec|wOSBrowser|BrowserNG|WebOS|Symbian|Windows Phone)/i)) {
+      return true; // 移动端
+    }else{
+      return false; // PC端
+    }
+}
 
 window.onloads = function(){
     println(`Welcome to the web-based console - StarWorld console v${version}!`,"color:#ff0;",std=true);
@@ -153,6 +160,11 @@ window.onloads = function(){
 }
 window.onload = function(){
     window.onloads();
+    if (document.getElementById("button-group") !== null && typeof document.getElementById("button-group") !== "undefined"){
+        if (!isMobile()){
+            document.getElementById("button-group").style.display = "none";
+        }
+    }
     send.onclick = function(){
         if (true) {
             up.push(sender.value);
