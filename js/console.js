@@ -12,7 +12,7 @@ importjs = (url)=>{
     importjs("./js/render.js");
 })()
 
-//variables
+
 var up = [""]; // Content history
 var upnum = 0; // history index
 var raw_console = console; // old console
