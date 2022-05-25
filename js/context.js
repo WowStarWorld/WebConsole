@@ -1,28 +1,6 @@
+
 var context ={
     commands:{
-        "help":function(command){
-            if (command == undefined){
-                println("Usage: "+context.helps.help.usage,"color: #0f0;");
-                println("Commands: [ \""+Object.keys(context.helps).join("\" , \"")+"\" ]","color: #0f0;");
-            }else if (command == "@all"){
-                for(var i = 0, len = Object.keys(context.helps).length; i < len; i++) {
-                    names = (Object.keys(context.helps)[i]);
-                    println(names,style="color: #0f0;");
-                    println(`    Description: ${context.helps[names]["description"]}`,style="color: #bababa;")
-                    println(`    Usage: ${context.helps[names]["usage"]}`,style="color: #bababa;")
-                }
-            }
-            else{
-                if (command in context.helps){
-                    println(`${command}`,style="color: #0f0;");
-                    println(`    Description: ${context.helps[command]["description"]}`,style="color: #bababa;")
-                    println(`    Usage: ${context.helps[command]["usage"]}`,style="color: #bababa;")
-                }else{
-                    throw ReferenceError("Command not found");
-                }
-            }
-            return "";
-        },
         "args":function(...args){
             return args;
         },
@@ -69,45 +47,44 @@ var context ={
             return "";
         },
         "var":function(type,name,exp,...value){
-            helper = () => {var evaler = new commandEvaler(context["commands"]);return evaler.eval("help var");}
+            helper = () => {var evaler = new commandEvaler(context["commands"],context["helps"]);return evaler.eval("help var");}
             if (type == "set"){
                 if (name != undefined){
-                    if (exp == "=="){
-                        return window[name] = eval(value.join(" "));
-                    }else if (exp == "+="){
-                        return window[name] = window[name] + eval(value.join(" "));
-                    }else if (exp == "^="){
-                        return window[name] = window[name] ** eval(value.join(" "));
-                    }else if (exp == "-="){
-                        return window[name] = eval(window[name]-eval(value.join(" ")));
-                    }else if (exp == "*="){
-                        return window[name] = eval(window[name]*eval(value.join(" ")));
-                    }else if (exp == "/="){
-                        return window[name] = eval(window[name]/eval(value.join(" ")));
-                    }else if (exp == "\\="){
-                        return window[name] = Math.floor(window[name]/eval(value.join(" ")));
-                    }else if (exp == "++"){
-                        return window[name]++;
-                    }else if (exp == "--"){
-                        return window[name]--;
-                    }else{
-                        return helper();
-                    }
+                    if(exp=="=="){var nameArr=name.split(".");var obj=window;for(var i=0;i<nameArr.length;i++){if(i==nameArr.length-1){obj[nameArr[i]]=eval(value.join(" "))}else{obj=obj[nameArr[i]]}}}else if(exp=="+="){var nameArr=name.split(".");var obj=window;for(var i=0;i<nameArr.length;i++){if(i==nameArr.length-1){obj[nameArr[i]]=obj[nameArr[i]]+eval(value.join(" "))}else{obj=obj[nameArr[i]]}}}else if(exp=="^="){var nameArr=name.split(".");var obj=window;for(var i=0;i<nameArr.length;i++){if(i==nameArr.length-1){obj[nameArr[i]]=obj[nameArr[i]]**eval(value.join(" "))}else{obj=obj[nameArr[i]]}}}else if(exp=="-="){var nameArr=name.split(".");var obj=window;for(var i=0;i<nameArr.length;i++){if(i==nameArr.length-1){obj[nameArr[i]]=obj[nameArr[i]]-eval(value.join(" "))}else{obj=obj[nameArr[i]]}}}else if(exp=="*="){var nameArr=name.split(".");var obj=window;for(var i=0;i<nameArr.length;i++){if(i==nameArr.length-1){obj[nameArr[i]]=obj[nameArr[i]]*eval(value.join(" "))}else{obj=obj[nameArr[i]]}}}else if(exp=="/="){var nameArr=name.split(".");var obj=window;for(var i=0;i<nameArr.length;i++){if(i==nameArr.length-1){obj[nameArr[i]]=obj[nameArr[i]]/eval(value.join(" "))}else{obj=obj[nameArr[i]]}}}else if(exp=="\\="){var nameArr=name.split(".");var obj=window;for(var i=0;i<nameArr.length;i++){if(i==nameArr.length-1){obj[nameArr[i]]=Math.floor(obj[nameArr[i]]/eval(value.join(" ")))}else{obj=obj[nameArr[i]]}}}else if(exp=="++"){var nameArr=name.split(".");var obj=window;for(var i=0;i<nameArr.length;i++){if(i==nameArr.length-1){obj[nameArr[i]]++}else{obj=obj[nameArr[i]]}}}else if(exp=="--"){var nameArr=name.split(".");var obj=window;for(var i=0;i<nameArr.length;i++){if(i==nameArr.length-1){obj[nameArr[i]]--}else{obj=obj[nameArr[i]]}}}else{return helper()}
                 }else{
                     return helper();
                 }
             }
             else if (type == "get"){
                 if (name != undefined){
-                    return window[name];
+                    name_ = name.split(".");
+                    if (name_.length > 1){
+                        content = window[name_[0]];
+                        for (var i = 1; i < name_.length; i++){
+                            content = content[name_[i]];
+                        }
+                        return content;
+                    }
+                    else{
+                        return window[name];
+                    }
                 }else{
                     return helper();
                 }
             }
             else if (type == "del"){
                 if (name != undefined){
-                    window[name] == null;
-                    return delete window[name];
+                    name_ = name.split(".");
+                    if (name_.length > 1){
+                        content = window[name_[0]];
+                        for (var i = 1; i < name_.length; i++){
+                            content = content[name_[i]];
+                        }
+                        content = undefined;
+                    }
+                    else{
+                        window[name] = undefined;
+                    }
                 }else{
                     return helper();
                 }
@@ -115,10 +92,6 @@ var context ={
             }else{
                 return helper();
             }
-        },
-        "eval":function(...code){
-            var evaler = new commandEvaler(context["commands"]);
-            return evaler.eval(code.join(" "));
         },
         "plugins":function(){
             $.ajax({
@@ -161,10 +134,6 @@ var context ={
         }
     },
     helps:{
-        "help":{
-            description:"Show this help message.",
-            usage:"help | help [command] | help @all"
-        },
         "args":{
             description:"Show the arguments of the command.",
             usage:"args [···args]"
@@ -188,10 +157,6 @@ var context ={
         "var":{
             description:"Manage variables.",
             usage:"var set|get|del &lt;name&gt; &lt;set-expression[==|+=|-=|*=|^=|/=|\\=|++|--]&gt; &lt;set-expression!=[++|--][···values]&gt;"
-        },
-        "eval":{
-            description:"Evaluate code.",
-            usage:"eval [···code]"
         },
         "plugins":{
             description:"Show the official plugins",

@@ -1,8 +1,15 @@
+importjs = (url)=>{
+    var script = document.createElement("script");
+    script.src = url;
+    document.head.appendChild(script);
+}
 !(function(){
-    document.write("<script src=\"https://cdn.staticfile.org/jquery/3.6.0/jquery.min.js\"></script>"); // $
-    document.write("<script src=\"./js/command_evaler.js\"></script>"); // commandEvaler
-    document.write("<script src=\"./js/config.js\"></script>"); // config
-    document.write("<script src=\"./js/context.js\"></script>"); // context
+    importjs("https://cdn.staticfile.org/jquery/3.6.0/jquery.min.js");
+    importjs("./js/command_evaler.js");
+    importjs("./js/config.js");
+    
+    importjs("./js/context.js");
+    importjs("./js/render.js");
 })()
 
 //variables
@@ -10,12 +17,12 @@ var up = [""]; // Content history
 var upnum = 0; // history index
 var raw_console = console; // old console
 var len =0; // println length
-var version = "1.1.3"; // WebConsole version
+var version = "1.1.4"; // WebConsole version
 var code = "I am JavaScript Code"; // Code Variable
 var evaler; // Define Evaler
 
 var reload_evaler = ()=>{
-    evaler = new commandEvaler(context["commands"]);
+    evaler = new commandEvaler(context["commands"],context["helps"]);
 }
 var help = (obj=help)=>{
     getParameterName = (fn) => {
@@ -67,7 +74,7 @@ console = {
         info:"color: #00aaff;",
         warn:"color: #ffa500;",
         error:"color: #ff0000;",
-        success:"color: #00ff00;"
+        done:"color: #00ff00;"
     },
     log:(...strings) => {
         raw_console.log(strings.join(""));
@@ -94,9 +101,9 @@ console = {
         println(strings.join("").replaceAll("\n","<br/>").replaceAll("&lt;","<").replaceAll("&gt;",">"),console.styles.error);
         return "";
     },
-    success:(...strings) => {
+    done:(...strings) => {
         raw_console.log(strings.join(""));
-        println(strings.join("").replaceAll("\n","<br/>").replaceAll("&lt;","<").replaceAll("&gt;",">"),console.styles.success);
+        println(strings.join("").replaceAll("\n","<br/>").replaceAll("&lt;","<").replaceAll("&gt;",">"),console.styles.done);
         return "";
     },
     dumps:(content,indent=2)=>{
@@ -172,7 +179,7 @@ window.onload = function(){
                 }
                 
             }catch(err){
-                println("<strong>"+String(err).replaceAll("<","&lt;").replaceAll(">","&gt;")+"</strong>","color: red;font-size: 15px;");
+                println("<strong>"+String(err.stack).replaceAll("<","&lt;").replaceAll(">","&gt;")+"</strong>","color: red;font-size: 15px;");
             }
             
         }
@@ -208,9 +215,9 @@ window.onload = function(){
             event.returnValue=false;
             tmp = sender.selectionStart;
             if (sender.selectionStart == sender.selectionEnd){
-                sender.value = sender.value.substr(0,tmp) + "  " + sender.value.substr(tmp);
+                sender.value = sender.value.substr(0,tmp) + "\t" + sender.value.substr(tmp);
             }else{
-                sender.value = sender.value.substr(0,sender.selectionStart) + "  " + sender.value.substr(sender.selectionEnd);
+                sender.value = sender.value.substr(0,sender.selectionStart) + "\t" + sender.value.substr(sender.selectionEnd);
             }
             sender.selectionStart = tmp+2;
             sender.selectionEnd = tmp+2;
