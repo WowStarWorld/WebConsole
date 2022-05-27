@@ -1,9 +1,9 @@
 # WebConsole
 The web-based console
 
-![version](https://img.shields.io/badge/Version-1.1.7-red)
-![license](https://img.shields.io/badge/License-MIT-green)
-![Platform](https://img.shields.io/badge/Platform-All Platform-blue)
+![Version](https://img.shields.io/badge/Version-1.1.7-red)
+![License](https://img.shields.io/badge/License-MIT-green)
+![Platform](https://img.shields.io/badge/Platform-Alll%20Platform-blue)
 
 ## GitHub pages deployment method
 1. Fork this repository to your own GitHub account.
