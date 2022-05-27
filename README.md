@@ -5,6 +5,7 @@ The web-based console
 ![License](https://img.shields.io/badge/License-MIT-green)
 ![Platform](https://img.shields.io/badge/Platform-Any-blue)
 ![Language](https://img.shields.io/badge/Language-HTML%20JavaScript-orange)
+![Type](https://img.shields.io/badge/Type-Web%20Application-yellowgreen)
 
 ## GitHub pages deployment method
 1. Fork this repository to your own GitHub account.
