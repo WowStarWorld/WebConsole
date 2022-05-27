@@ -17,6 +17,5 @@ The web-based console
 2. Place the source code in the root directory of your website
 3. Delete the file "CNAME"
 4. Change "/js/config.js" URL address in file
-
-
-![preview](https://github-readme-stats.vercel.app/api/pin/?username=WowStarWorld&repo=WebConsole)
+<br/><br/>
+<center>![preview](https://github-readme-stats.vercel.app/api/pin/?username=WowStarWorld&repo=WebConsole)</center>
