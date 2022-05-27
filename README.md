@@ -18,4 +18,4 @@ The web-based console
 3. Delete the file "CNAME"
 4. Change "/js/config.js" URL address in file
 <br/><br/>
-<center>![preview](https://github-readme-stats.vercel.app/api/pin/?username=WowStarWorld&repo=WebConsole)</center>
+<center><img src="https://github-readme-stats.vercel.app/api/pin/?username=WowStarWorld&repo=WebConsole" alt="overview"/></center>
