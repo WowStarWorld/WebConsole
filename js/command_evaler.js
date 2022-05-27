@@ -1,56 +1,4 @@
-function hasSpecialStr(str){
-    var specialChars= "~·`!！$￥#%^…&*()（）—-_=+[]{}【】、|\\;:；：'\"“‘,/<>《》?？，。";
-    var len=specialChars.length;
-    for ( var i = 0; i < len; i++){
-        if (str.indexOf(specialChars.substring(i,i+1)) != -1){
-            return true;
-        }
-    }
-    return false;
-}
-!(
-    function () 
-    {
-        EXCEPTIONS = {}
-        EXCEPTIONS.CommandParseError = (
-            class CommandParseError extends Error {
-                constructor(message) {
-                    super(message);
-                    this.name = 'CommandParseError',
-                        Error.captureStackTrace(this, this.constructor);
-                };
-            }
-        );
-        EXCEPTIONS.CommandNotFoundError = (
-            class CommandNotFoundError extends Error {
-                constructor(message) {
-                    super(message);
-                    this.name = 'CommandNotFoundError',
-                        Error.captureStackTrace(this, this.constructor);
-                };
-            }
-        
-        );
-        EXCEPTIONS.StackOverflowError = (
-            class StackOverflowError extends Error {
-                constructor(message) {
-                    super(message)
-                    this.name = 'StackOverflowError',
-                        Error.captureStackTrace(this, this.constructor);
-                };
-            }
-        );
-        EXCEPTIONS.IOErrror = (
-            class IOErrror extends Error {
-                constructor(message) {
-                    super(message)
-                    this.name = 'IOErrror',
-                        Error.captureStackTrace(this, this.constructor);
-                };
-            }
-        );
-    }
-)();
+importjs("./js/prototypes.js");
 
 class commandEvaler{
     constructor(context,helps){
@@ -91,13 +39,14 @@ class commandEvaler{
             }
         }
         this.command_name = this.command_args[0];
-        if (hasSpecialStr(this.command_name)){
+        if (!new StringRegularExpression(this.command_name).is_CommandName()){
             throw ( new EXCEPTIONS.CommandParseError ("Invalid Command Syntax") );
         }
         this.command_args = this.command_args.slice(1,this.command_args.length);
         if (this.context.hasOwnProperty(this.command_name)){
             try{
-                return this.context[this.command_name](...this.command_args);
+                var result = this.context[this.command_name](...this.command_args);
+                return result;
             }catch(e){
                 if (e instanceof RangeError){
                     if (e.message = "Maximum call stack size exceeded"){
@@ -140,5 +89,6 @@ class commandEvaler{
         }catch(e){
             println(e.stack,"color: #f00;");
         }
+        return null;
     }
 }

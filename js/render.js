@@ -86,44 +86,95 @@ class Color{
         return parseInt(this.toHex().color.substring(1),16);
     }
 }
+class Style{
+    constructor(style=Array||Style||String||Object){
+        if (style.constructor === Array){
+            this.style = style;
+        }else if (style.constructor === Style){
+            this.style = style.style;
+        }else if (style.constructor == String){
+            this.style = [style];
+        }else if (style.constructor == Object){
+            this.style = style;
+        }else{
+            this.style = [String(style)];
+        };
+    };
+    toString(){
+        if (this.style.constructor === Array){
+            return this.style.join("\n");
+        }else if (this.style.constructor === Object){
+            return Object.keys(this.style).map(key=>{
+                return key+":"+String(this.style[key])+";";
+            }).join("\n");
+        }
+    };
+    toObject(){
+        if (this.style.constructor === Array){
+            var content = this.toString().replaceAll("\n","").split(";");
+            var obj = {};
+            for (let i = 0; i < content.length; i++) {
+                let key = content[i].split(":")[0];
+                let value = content[i].split(":").slice(1).join(":");
+                if (!(content[i].split(":").length < 2)) {
+                    obj[key] = value;
+                }
+            }
+            return obj;
+        }else if (this.style.constructor === Object){
+            return this.style;
+        }
+    };
+    toArray(){
+        if (this.style.constructor === Array){
+            return this.style;
+        }else if (this.style.constructor === Object){
+            return Object.keys(this.style).map(key=>{
+                return key+":"+String(this.style[key])+";";
+            });
+        }
+    };
+    appendElement(element=document.documentElement){
+        element.style.cssText = Object.assign(element.style,this.toObject()).cssText;
+        return element;
+    };
+    mergeStyle(style=Array||Style||String||Object){
+        return new Style(Object.assign(this.toObject(),style.toObject()));
+    }
+    toThis(){
+        return this;
+    }
+    toHTML(tagName="tagName",formatter=String){
+        var element = document.createElement(tagName);
+        element.innerHTML = (formatter(this));
+        return element;
+    }
+}
 
-raw_console.log(
-`%c
-                                                                                                   
-                                                                                                   
-                                                                                                   
-                                                                                                   
-                                                                                                   
-                                                                                                   
-                                                                                                   
-                                                                                                   
-                                                                                                   
-                                                                                                   
-                                                      ;i:                                          
-                                                  ;iiiii:                                          
-                                              iiiiiiiiii:                                          
-                                         ,iiiiiiiiiiiiii:                                          
-                                     ,iiiiiiiiiiiiiiiiii:                                          
-                                 :iiiiiiiiiiiiiiiiiiiii;                                           
-                                 iiiiiiiiiiiiiiiiii;                                               
-                                 iiiiiiiiiiiiii:    i,  ,1,                                        
-                                 iiiiiiiiii,     i. 1,  ,1111i:                                    
-                                 iiiiiiiii    i: 1. 1,  ,11iiiiiii:                                
-                                 iiiiiiiiii   i: 1. 1,  ,iiiiiiiii;                                
-                                 iiiiiiiiii   1: 1. 1,  ,iiiiiiiii;                                
-                                 iiiiiiiiii   1: 1. 1,  ,iiiiiiiii;                                
-                                 iiiiii111i   1: 1. i,   :iiiiiiii;                                
-                                     i1111i   1: i.     ;iiiiiiiii;                                
-                                         ii   1,    iiiiiiiiiiiiii;                                
-                                               .iiiiiiiiiiiiiiiiii;                                
-                                           ,iiiiiiiiiiiiiiiiiii;;:.                                
-                                           iiiiiiiiiiiiiiii;;;                                     
-                                           iiiiiiiiiiii;;:                                         
-                                           iiiiiiii;;:                                             
-                                           iiii;;,                                                 
-                                           ;;,                                                     
-                                                                                                                                                                                                                                                                    
-`," color:aqua;");
-raw_console.log(`%c
-                                      StarWorld Studio 
-`,"color:aqua;");
+class StringRegularExpression{
+    constructor(str){
+        this.String = String(str);
+    }
+    toString(){return String(this.String);}
+    is_URL(){var RegExp = /^(http|https|ftp):\/\/[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/i;return RegExp.test(this.String);}
+    is_Email(){var RegExp = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,5})+$/;return RegExp.test(this.String);}
+    is_Number(){    var RegExp = /^[0-9]+$/;    return RegExp.test(this.String);}
+    is_Alpha(){var RegExp = /^[a-zA-Z]+$/;return RegExp.test(this.String);}
+    is_Symbol(){var RegExp = /^[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+$/;return RegExp.test(this.String);}
+    is_Name(){var RegExp = /^[a-zA-Z_][a-zA-Z0-9_]*$/;return RegExp.test(this.String);}
+    is_HTML(){var RegExp = /^<([a-z]+)([^<]+)*(?:>(.*)<\/\1>|\s+\/>)$/;return RegExp.test(this.String);}
+    is_JSON(){var RegExp = /^[\{\[].*[\}\]]$/;return RegExp.test(this.String);}
+    is_Date(){var RegExp = /^\d{4}-\d{2}-\d{2}$/;return RegExp.test(this.String);}
+    is_FileName(){var RegExp = /^[^\\\/\:\*\?\"\<\>\|]+$/;return RegExp.test(this.String);}
+    is_Entity(){var RegExp = /^&(#)?[a-zA-Z0-9]+;$/;return RegExp.test(this.String);}
+    is_ASCII(){var RegExp = /^[\x00-\x7F]+$/;return RegExp.test(this.String);}
+    is_Unicode(){var RegExp = /^[\u0000-\uFFFF]+$/;return RegExp.test(this.String);}
+    is_Base64(){var RegExp = /^(?:[A-Za-z0-9+\/]{4})*(?:[A-Za-z0-9+\/]{2}==|[A-Za-z0-9+\/]{3}=)?$/;return RegExp.test(this.String);}
+    is_Hex(){var RegExp = /^[0-9a-fA-F]+$/;return RegExp.test(this.String);}
+    is_MD5(){var RegExp = /^[a-fA-F0-9]{32}$/;return RegExp.test(this.String);}
+    is_SHA1(){var RegExp = /^[a-fA-F0-9]{40}$/;return RegExp.test(this.String);}
+    is_NumberHead(){var RegExp = /^[0-9]+.*/;return RegExp.test(this.String);}
+    is_CommandName(){var str = this.String;var specialChars= "~·`!！$￥#%^…&*()（）—-_=+[]{}【】、|\\;:；：'\"“‘,/<>《》?？，。";var len=specialChars.length;for ( var i = 0; i < len; i++){if (str.indexOf(specialChars.substring(i,i+1)) != -1){return false;}} if (!this.is_NumberHead()) return true;}
+    $_GET(name){var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");var r = this.String.substr(1).match(reg);if(r!=null)return  unescape(r[2]); return null;}
+    $_HASH(){var reg = new RegExp("#(.*)$");var r = this.String.match(reg);if(r!=null)return  unescape(r[1]); return null;}
+}

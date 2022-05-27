@@ -21,7 +21,7 @@ var context ={
                 method:method,
                 data:JSON.parse(data.replaceAll("&nbsp;"," ")),
                 success:function(content){
-                    println(content.replaceAll(">","&gt;").replaceAll("<","&lt;"),"color: #0f0;");
+                    println(JSON.stringify(content).replaceAll(">","&gt;").replaceAll("<","&lt;"),"color: #0f0;");
                 },
                 error:function(err){
                     println(JSON.stringify(err,null,2).replaceAll(">","&gt;").replaceAll("<","&lt;"),"color: #f00;");
@@ -93,18 +93,41 @@ var context ={
                 return helper();
             }
         },
-        "plugins":function(){
+        "plugins":function(...args){
             $.ajax({
                 url:config.pluginlist_mirror,
                 success:function(content){
                     var plugins = content.pluginlist;
-                    for(var i = 0, len = plugins.length; i < len; i++) {
-                        println(plugins[i].name,style="color: #0f0;");
-                        println(`    Description: ${plugins[i].description}`,style="color: #bababa;")
-                        println(`    Author: ${plugins[i].author}`,style="color: #bababa;")
-                        println(`    Version: ${plugins[i].version}`,style="color: #bababa;")
-                        println(`    URL: ${plugins[i].url}`,style="color: #bababa;")
-                        println(`    Plugin: ${plugins[i].plugin}`,style="color: #bababa;")
+                    var plugin_names = [];
+                    if (args.length == 0){
+                        for (var i = 0; i < plugins.length; i++){
+                            plugin_names.push(plugins[i].name);
+                        }
+                        println("Plugins:","color: #0f0;");
+                        println("    "+plugin_names.join("\n"),"color: #0f0;");
+                        return "";
+                    }else if (args.length >= 2){
+                        if (args[0] == "search"){
+                            names = args.slice(1).join(" ");
+                            contents = [];
+                            for (var i = 0; i < plugins.length; i++){
+                                if (plugins[i].name.indexOf(names) != -1){
+                                    contents.push(plugins[i]);
+                                }
+                            }
+                            for (var i = 0; i < contents.length; i++){
+                                println(contents[i].name,style="color: #0f0;");
+                                println(`    Description: ${contents[i].description}`,style="color: #bababa;")
+                                println(`    Author: ${contents[i].author}`,style="color: #bababa;")
+                                println(`    Version: ${contents[i].version}`,style="color: #bababa;")
+                                println(`    URL: ${contents[i].url}`,style="color: #bababa;")
+                                println(`    Plugin: ${contents[i].plugin}`,style="color: #bababa;")
+                            }
+                            if (contents.length == 0){
+                                println("No plugin found","color: #f00;");
+                            }
+                            return "";
+                        }
                     }
                 },
                 error:function(err){
@@ -160,7 +183,7 @@ var context ={
         },
         "plugins":{
             description:"Show the official plugins",
-            usage:"plugins & import &lt;plugin&gt;"
+            usage:"[plugins | plugins search &lt;name&gt;] & import &lt;plugin&gt;"
         },
         "upload":{
             description:"Upload and import a plugin",
