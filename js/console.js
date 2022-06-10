@@ -2,6 +2,7 @@ importjs = (url)=>{
     var script = document.createElement("script");
     script.src = url;
     document.head.appendChild(script);
+    return script;
 }
 !(function(){
     importjs("https://cdn.staticfile.org/jquery/3.6.0/jquery.min.js");
@@ -16,7 +17,7 @@ var up = [""]; // Content history
 var upnum = 0; // history index
 var raw_console = console; // old console
 var len =0; // println length
-var version = "1.1.7"; // WebConsole version
+var version = "1.1.8"; // WebConsole version
 var code = "I am JavaScript Code"; // Code Variable
 var evaler; // Define Evaler
 

@@ -8,13 +8,13 @@ class commandEvaler{
             throw new TypeError("helps must be an object");
         }
         this.context = context;
-        helps.help = {description:"A built-in command is used to show this help message.",usage:"help | help [command] | help @all"};
+        helps.help = {description:"A built-in command is used to show this help message.",usage:"help | help [command]"};
         helps.eval = {description:"A built-in command is used to evaluate command and return value.",usage:"eval [···command]"};
         helps.exec = {description:"A Built in command is used to execute command and do not return value.",usage:"exec [···command]"};
         this.helps = helps;
         this.context.exec = function(...command){evaler = new commandEvaler(this,this); evaler.exec(command.join(" ")); return "";};
         this.context.eval = function(...command){evaler = new commandEvaler(this,helps); return evaler.eval(command.join(" "));}
-        this.context.help = function(command){if(command==undefined){println("Usage:&nbsp;"+helps.help.usage,"color: #0f0;");println("Commands: [ \""+Object.keys(helps).join("\" , \"")+"\" ]","color: #0f0;")}else if(command=="@all"){for(var i=0,len=Object.keys(helps).length;i<len;i++){names=(Object.keys(helps)[i]);println(names,style="color: #0f0;");println(`Description:&nbsp;${helps[names]["description"]}`,style="color: #bababa;");println(`Usage:${helps[names]["usage"]}`,style="color: #bababa;")}}else{if(command in helps){println(`${command}`,style="color: #0f0;");println(`Description:&nbsp;${helps[command]["description"]}`,style="color: #bababa;");println(`Usage:&nbsp;${helps[command]["usage"]}`,style="color: #bababa;")}else{throw ReferenceError("Command not found");}}return""}
+        this.context.help = function(command){if(command==undefined){println("Usage:&nbsp;"+helps.help.usage,"color: #0f0;");println("Commands: [ \""+Object.keys(helps).join("\" , \"")+"\" ]","color: #0f0;")}else{if(command in helps){println(`${command}`,style="color: #0f0;");println(`&nbsp;&nbsp;Description:&nbsp;${helps[command]["description"]}`,style="color: #bababa;");println(`&nbsp;&nbsp;Usage:&nbsp;${helps[command]["usage"]}`,style="color: #bababa;")}else{throw ReferenceError("Command not found");}}return""}
     }
     eval(command){
         if (typeof(console)=="undefined"|| raw_console == null || typeof(raw_console) == "undefined" || raw_console == null || println == null || typeof(println) == "undefined" || println == null || typeof(println) == "undefined"){
